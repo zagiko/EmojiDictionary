@@ -3,36 +3,50 @@
 import UIKit
 
 class EmojiCollectionViewHeader: UICollectionReusableView {
-    let titleLabel = UILabel()
+    lazy var effect = {
+        print("effect")
+        return UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
+    }()
+
+    lazy var titleLabel = {
+        print("in title label")
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .headline)
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print("init")
+        addSubviews()
+        configureConstraints()
 
-        let effect = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
-        
-        effect.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.addSubview(effect)
-        
-        NSLayoutConstraint.activate([
-            effect.topAnchor.constraint(equalTo: self.topAnchor),
-            effect.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            effect.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            effect.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        ])
-        
-        effect.contentView.addSubview(titleLabel)
-        
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = .preferredFont(forTextStyle: .headline)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: titleLabel.superview!.centerYAnchor),
-            titleLabel.centerXAnchor.constraint(equalTo: titleLabel.superview!.centerXAnchor)
-        ])
+//        let effect = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
+//
+//        self.addSubview(effect)
+//
+//        effect.align(with: self)
+//
+//        effect.contentView.addSubview(titleLabel)
+//
+//        titleLabel.alignCenter(to: effect.contentView)
+////        NSLayoutConstraint.activate([
+////            titleLabel.centerYAnchor.constraint(equalTo: titleLabel.superview!.centerYAnchor),
+////            titleLabel.centerXAnchor.constraint(equalTo: titleLabel.superview!.centerXAnchor)
+////        ])
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func addSubviews() {
+        addSubview(effect)
+        effect.contentView.addSubview(titleLabel)
+    }
+
+    private func configureConstraints() {
+        effect.align(with: self)
+        titleLabel.alignCenter(to: effect.contentView)
     }
 }

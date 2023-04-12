@@ -57,7 +57,7 @@ class EmojiCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collectionView.register(cellType: EmojiCollectionViewCell.self)
         collectionView.register(EmojiCollectionViewHeader.self, forSupplementaryViewOfKind: headerKind, withReuseIdentifier: headerIdentifier)
         // Тут прописуються ідентіфікатори заголовків, бо створюються заголовки?
         
@@ -169,9 +169,11 @@ class EmojiCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let identifier = activeLayout == .grid ? reuseIdentifier : columnReuseIdentifier
+//        let identifier = activeLayout == .grid ? reuseIdentifier : columnReuseIdentifier
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! EmojiCollectionViewCell
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! EmojiCollectionViewCell
+
+        let cell = collectionView.cell(cellType: EmojiCollectionViewCell.self, for: indexPath)
         
         //Step 2: Fetch model object to display
         let emoji = sections[indexPath.section].emojis[indexPath.item]
