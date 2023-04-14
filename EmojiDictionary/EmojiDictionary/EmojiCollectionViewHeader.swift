@@ -4,12 +4,12 @@ import UIKit
 
 class EmojiCollectionViewHeader: UICollectionReusableView {
     lazy var effect = {
-        print("effect")
+//        print("effect")
         return UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
     }()
 
     lazy var titleLabel = {
-        print("in title label")
+//        print("in title label")
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
         return label
@@ -17,7 +17,7 @@ class EmojiCollectionViewHeader: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("init")
+//        print("init")
         addSubviews()
         configureConstraints()
 

@@ -58,6 +58,7 @@ class EmojiCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(cellType: EmojiCollectionViewCell.self)
+        collectionView.register(cellType: EmojiDictionaryCollectionViewCellColumnItem.self)
         collectionView.register(EmojiCollectionViewHeader.self, forSupplementaryViewOfKind: headerKind, withReuseIdentifier: headerIdentifier)
         // Тут прописуються ідентіфікатори заголовків, бо створюються заголовки?
         
@@ -169,20 +170,43 @@ class EmojiCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-//        let identifier = activeLayout == .grid ? reuseIdentifier : columnReuseIdentifier
+//        let cell = collectionView.cell(cellType: EmojiCollectionViewCell.self, for: indexPath)
         
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! EmojiCollectionViewCell
+        //        let identifier = activeLayout == .grid ? reuseIdentifier : columnReuseIdentifier
+        
+        //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! EmojiCollectionViewCell
+        //
+        //        let cell = collectionView.cell(cellType: EmojiCollectionViewCell.self, for: indexPath)
+        //        let cell2 = collectionView.cell(cellType: EmojiDictionaryCollectionViewCellColumnItem.self, for: indexPath)
+        
+        if activeLayout == .grid  {
+            let cell = collectionView.cell(cellType: EmojiCollectionViewCell.self, for: indexPath)
+            let emoji = sections[indexPath.section].emojis[indexPath.item]
+            cell.update(with: emoji)
 
-        let cell = collectionView.cell(cellType: EmojiCollectionViewCell.self, for: indexPath)
+            return cell
+            
+        } else {
+            let cell = collectionView.cell(cellType: EmojiDictionaryCollectionViewCellColumnItem.self, for: indexPath)
+            let emoji = sections[indexPath.section].emojis[indexPath.item]
+
+            cell.update(with: emoji)
+
+            return cell
+        }
         
-        //Step 2: Fetch model object to display
-        let emoji = sections[indexPath.section].emojis[indexPath.item]
+//        //Step 2: Fetch model object to display
+//        let emoji = sections[indexPath.section].emojis[indexPath.item]
+//
+//        //Step 3: Configure cell
+//        cell.update(with: emoji)
+//
+//        //Step 4: Return cell
+//        return cell
+    
+//        return cell
         
-        //Step 3: Configure cell
-        cell.update(with: emoji)
         
-        //Step 4: Return cell
-        return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

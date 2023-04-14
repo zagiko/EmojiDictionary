@@ -6,8 +6,9 @@ class EmojiCollectionViewCell: UICollectionViewCell {
     lazy var stackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .fill
+        stackView.distribution = .fill
         stackView.alignment = .center
+        stackView.spacing = 2
         return stackView
     }()
 
@@ -20,12 +21,16 @@ class EmojiCollectionViewCell: UICollectionViewCell {
     lazy var nameLabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20)
+        label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
 
     lazy var descriptionLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 10)
+        label.font = .systemFont(ofSize: 16)
+        label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
 
@@ -55,6 +60,12 @@ class EmojiCollectionViewCell: UICollectionViewCell {
     }
 
     private func configureContstraints() {
-        stackView.align(with: contentView, constant: 20)
+//        stackView.align(with: contentView, constant: 20)
+        stackView.alignLeading(to: leadingAnchor, constant: 20)
+        stackView.alignTrailing(to: trailingAnchor, constant: 20)
+        stackView.alignTop(to: topAnchor, constant: 20)
+//        stackView.alignBottom(to: bottomAnchor, constant: 20)
+        stackView.alignBottomGreaterThanOrEqual(to: bottomAnchor, constant: -40)
+
     }
 }
